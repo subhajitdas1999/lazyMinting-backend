@@ -92,7 +92,6 @@ const logIn = catchAsync(async (req, res, next) => {
 
 const logOut = catchAsync(async (req, res, next) => {
   //send cookie
-  
   sendCookie(res, "loggedOut");
   res.status(200).json({
     status: "success",
