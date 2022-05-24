@@ -4,6 +4,7 @@ import {
     uploadNFT,
     sellNFT,
     buyNFT,
+    getMyNFTCollection,
     getAllNFTCollection,
     getAllNFTsForSale,
     
@@ -15,6 +16,7 @@ nftRouter.post("/uploadNFT", protect, uploadNFT);
 nftRouter.post("/sellNFT", protect, sellNFT);
 nftRouter.post("/buyNFT", protect, buyNFT);
 
+nftRouter.get("/myNfts",protect,getMyNFTCollection);
 nftRouter.get("/allNfts",getAllNFTCollection);
 nftRouter.get("/nftsForSale",getAllNFTsForSale);
 
