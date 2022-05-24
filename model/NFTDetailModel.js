@@ -6,21 +6,29 @@ const NFTDetailSchema = new mongoose.Schema({
     ref: "User",
     required: [true, "A User is required"],
   },
-  NFTArtLink: {
+  artLink: {
     type: String,
     required: [true, "A NFT Art is required"],
   },
-  NFTArtDescription : {
+  artDescription : {
     type : String,
     required : [true , "A NFT art description is required"],
   },
-  NFTTokenId : {
+  tokenId : {
     type : String,
     required : [true ,"A NFT token id is required"]
+  },
+  tokenURI : {
+    type : String,
+    required : [true ,"A NFT token uri is required"]
   },
   isTokenOnchain :{
     type : Boolean,
     default : false
+  },
+  ownerAddress:{
+    type:String,
+    default:""
   },
   isForSale :{
     type : Boolean,
@@ -32,7 +40,8 @@ const NFTDetailSchema = new mongoose.Schema({
   },
   sellPrice : {
     type : Number,
-    default : 0
+    default : 0,
+    
   }
 });
 
