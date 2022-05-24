@@ -9,8 +9,8 @@ dotenv.config({ path: "../.env" });
 
 //upload a nft
 const uploadNFT = catchAsync(async (req, res, next) => {
-  if (!req.files){
-    return next(new AppError(401,"Cannot proceed with empty file"))
+  if (!req.files) {
+    return next(new AppError(401, "Cannot proceed with empty file"));
   }
   //morails init code
   await Moralis.start({
@@ -19,10 +19,10 @@ const uploadNFT = catchAsync(async (req, res, next) => {
     masterKey: process.env.MASTER_KEY,
   });
 
-  //the data section in req.files.photo is a buffer array we need to convert it to the image array for upload
-  const data = Array.from(Buffer.from(req.files.photo.data, "binary"));
+  //the data section in req.files.NFTImage is a buffer array we need to convert it to the image array for upload
+  const data = Array.from(Buffer.from(req.files.NFTImage.data, "binary"));
 
-  const file = new Moralis.File(req.files.photo.name, data);
+  const file = new Moralis.File(req.files.NFTImage.name, data);
   await file.saveIPFS({ useMasterKey: true });
 
   // file.hash() = returns the ipfs hash
@@ -51,9 +51,10 @@ const uploadNFT = catchAsync(async (req, res, next) => {
   //this is protected route that's why we get accessed to req.user
   const NFTDocument = {
     user: req.user._id,
-    NFTArtLink: jsonfile.ipfs(),
-    NFTArtDescription: req.body.description,
-    NFTTokenId: tokenId,
+    tokenId: tokenId,
+    tokenURI: `ipfs://${file.hash()}`,
+    artLink: jsonfile.ipfs(),
+    artDescription: req.body.description,
   };
 
   //Upload the NFT document
@@ -79,6 +80,11 @@ const sellNFT = catchAsync(async (req, res, next) => {
     );
   }
 
+  //min price Should be 0.000001 ether
+  
+  if (req.body.price < 0.000001) {
+    return next(new AppError(400,"Minimum NFT selling price should be greater than 0.000001 ether"))
+  }
   //update the NFT DEtails for sell
   nftDetails.isForSale = true;
   nftDetails.signatureForNFT = req.body.signature;
@@ -114,6 +120,8 @@ const buyNFT = catchAsync(async (req, res, next) => {
     nftDetails.isTokenOnchain = true;
   }
 
+  //save the owner address
+  nftDetails.ownerAddress = req.body.ownerAddress
   //remove the signature of prev user
   nftDetails.signatureForNFT = "";
   // setting sell price to 0
@@ -142,6 +150,19 @@ const getAllNFTsForSale = catchAsync(async (req, res, next) => {
   });
 });
 
+const getMyNFTCollection = catchAsync(async (req, res, next) => {
+  const nftCollections = await NFTDetail.find({ user: req.user._id });
+
+  //send the response
+  res.status(200).json({
+    status: "success",
+    length: nftCollections.length,
+    data: {
+      nftCollections,
+    },
+  });
+});
+
 const getAllNFTCollection = catchAsync(async (req, res, next) => {
   const nftCollections = await NFTDetail.find();
 
@@ -155,4 +176,11 @@ const getAllNFTCollection = catchAsync(async (req, res, next) => {
   });
 });
 
-export { uploadNFT, sellNFT, getAllNFTCollection, buyNFT, getAllNFTsForSale };
+export {
+  uploadNFT,
+  sellNFT,
+  getAllNFTCollection,
+  getMyNFTCollection,
+  buyNFT,
+  getAllNFTsForSale,
+};
