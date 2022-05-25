@@ -81,9 +81,13 @@ const sellNFT = catchAsync(async (req, res, next) => {
   }
 
   //min price Should be 0.000001 ether
-  
-  if (req.body.price < 0.000001) {
-    return next(new AppError(400,"Minimum NFT selling price should be greater than 0.000001 ether"))
+  if (req.body.price < process.env.MIN_NFT_PRICE) {
+    return next(
+      new AppError(
+        401,
+        "Minimum NFT selling price should be greater than 0.000001 ether"
+      )
+    );
   }
   //update the NFT DEtails for sell
   nftDetails.isForSale = true;
@@ -121,7 +125,7 @@ const buyNFT = catchAsync(async (req, res, next) => {
   }
 
   //save the owner address
-  nftDetails.ownerAddress = req.body.ownerAddress
+  nftDetails.ownerAddress = req.body.ownerAddress;
   //remove the signature of prev user
   nftDetails.signatureForNFT = "";
   // setting sell price to 0
