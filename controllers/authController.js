@@ -96,10 +96,9 @@ const logOut = catchAsync(async (req, res, next) => {
   res.status(200).json({
     status: "success",
   });
-
 });
 
-const isLoggedIn = catchAsync(async(req,res,next) =>{
+const isLoggedIn = catchAsync(async (req, res, next) => {
   let token;
   if (
     req.headers.authorization &&
@@ -109,7 +108,7 @@ const isLoggedIn = catchAsync(async(req,res,next) =>{
   } else if (req.cookies.jwt) {
     token = req.cookies.jwt;
   }
-  if (!token) {
+  if (!token || token === "loggedOut") {
     return next(new AppError(401, "You are not logged In."));
   }
 
@@ -132,9 +131,7 @@ const isLoggedIn = catchAsync(async(req,res,next) =>{
       user,
     },
   });
-
-})
-
+});
 
 //protect the route . Make sure user is logged In
 const protect = catchAsync(async (req, res, next) => {
@@ -148,11 +145,10 @@ const protect = catchAsync(async (req, res, next) => {
   } else if (req.cookies.jwt) {
     token = req.cookies.jwt;
   }
-  if (!token) {
+  // console.log(token);
+  if (!token || token === "loggedOut") {
     return next(new AppError(401, "You are not logged In."));
   }
-
-  
 
   // this jsonwebtoken verify expects a call back func as a third argument we want keep async await
   //that's why we are using promisify from node js
@@ -172,4 +168,4 @@ const protect = catchAsync(async (req, res, next) => {
   next();
 });
 
-export { signup, logIn, logOut, protect,isLoggedIn };
+export { signup, logIn, logOut, protect, isLoggedIn };
