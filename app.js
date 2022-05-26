@@ -12,6 +12,9 @@ dotenv.config({path:"./.env"})
 
 const app = express();
 
+//we need to enable trust proxys because heroku acts as proxy which kind of modifies incoming request.
+app.enable("trust proxy")
+
 app.use(express.json());
 //in order to parse data submitted through form
 app.use(express.urlencoded({ extended: true }));
