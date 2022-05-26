@@ -22,27 +22,24 @@ app.use(fileUpload());
 app.use(cookieParser())
 
 
-// var corsOptions = {
-//   origin: "http://localhost:3000",
-//   optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
-// }
-// app.use(cors())
-
-//handling cors
-app.use(function(req, res, next) {
+//this function is for auth handling with jwt token (credentials)
+//allow a single origin to access the credentials (axios request from frontend make with withCredentials true)
+const corsForCredentialsAndAuth = function(req, res, next) {
   
   res.header('Access-Control-Allow-Origin', process.env.ALLOW_ACCESS_TO)
   res.header('Access-Control-Allow-Credentials', true);
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+
   next();
-});
+}
 
 
 
 
 
-app.use("/api/users", userRouter);
-app.use("/api/nft", nftRouter);
+app.use("/api/users",corsForCredentialsAndAuth, userRouter);
+//allow for every origin
+app.use("/api/nft",cors(),nftRouter);
 
 //if no route hit till this point
 //then user has hit a wrong end point
