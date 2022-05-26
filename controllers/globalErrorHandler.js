@@ -33,7 +33,7 @@ const sendErrorDev = async (err, req, res) => {
       stack: err.stack,
     });
   }
-};console
+};
 
 const sendErrorProd = async (err, req, res) => {
   //1 for apis
@@ -69,6 +69,7 @@ const globalErrorHandler = async (err, req, res, next) => {
     else if (err.name === "JsonWebTokenError") {
       error = handleJsonWebTokenErrorDB(error);
     } else if (err.name === "CastError") {
+      //cast error occurred during query with invalid mongoose id (ex : find(id:"aaaaaaaaaaaa"))
       error = handleCastErrorDB(error);
     }
 
