@@ -14,7 +14,7 @@ const getToken = (id) => {
   });
 };
 
-const sendCookie = (res, token) => {
+const sendCookie = (req,res, token) => {
   //setting cookie options
   const cookieOptions = {
     expires: new Date(
@@ -27,13 +27,15 @@ const sendCookie = (res, token) => {
 
   //part of hero ku deployment
   // Now in express we have a req.secure property which is true when the connection is secure
-  //but on heroku this req.secure doesnot work because of heroku proxies
+  //but on heroku this req.secure does not work because of heroku proxies
   //basically redirect/modifies all incoming req into our application before they actually reach the app
   //to make it work in heroku we have to check if the x-forward-proto header set to https
   //this something heroku does internally
 
-  // if (req.secure || req.headers["x-forward-proto"] === "https")
-  // cookieOptions.secure = true;
+  if (req.secure || req.headers["x-forward-proto"] === "https"){
+
+    cookieOptions.secure = true;
+  }
 
   //send the cookie
   res.cookie("jwt", token, cookieOptions);
@@ -50,7 +52,7 @@ const signup = catchAsync(async (req, res, next) => {
   const token = getToken(user._id);
 
   //send cookie
-  sendCookie(res, token);
+  sendCookie(req,res, token);
   res.status(201).json({
     status: "success",
     token,
@@ -78,7 +80,7 @@ const logIn = catchAsync(async (req, res, next) => {
   const token = getToken(user._id);
 
   //send cookie
-  sendCookie(res, token);
+  sendCookie(req,res, token);
 
   // send the response
   res.status(201).json({
@@ -92,7 +94,7 @@ const logIn = catchAsync(async (req, res, next) => {
 
 const logOut = catchAsync(async (req, res, next) => {
   //send cookie
-  sendCookie(res, "loggedOut");
+  sendCookie(req,res, "loggedOut");
   res.status(200).json({
     status: "success",
   });
