@@ -54,6 +54,7 @@ const uploadNFT = catchAsync(async (req, res, next) => {
     tokenId: tokenId,
     tokenURI: `ipfs://${file.hash()}`,
     artLink: jsonfile.ipfs(),
+    artName:req.body.artName,
     artDescription: req.body.description,
   };
 
