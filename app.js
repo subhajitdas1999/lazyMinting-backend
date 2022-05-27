@@ -1,6 +1,6 @@
 import express from "express";
 import fileUpload from "express-fileupload";
-import cors from "cors";
+// import cors from "cors";
 import cookieParser from "cookie-parser";
 import userRouter from "./routes/userRoutes.js";
 import nftRouter from "./routes/nftRoutes.js";
@@ -27,22 +27,22 @@ app.use(cookieParser())
 
 //this function is for auth handling with jwt token (credentials)
 //allow a single origin to access the credentials (axios request from frontend make with withCredentials true)
-const corsForCredentialsAndAuth = function(req, res, next) {
+app.use(function(req, res, next) {
   
   res.header('Access-Control-Allow-Origin', process.env.ALLOW_ACCESS_TO)
   res.header('Access-Control-Allow-Credentials', true);
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
 
   next();
-}
+})
 
 
 
 
 
-app.use("/api/users",corsForCredentialsAndAuth, userRouter);
+app.use("/api/users", userRouter);
 //allow for every origin
-app.use("/api/nft",cors(),nftRouter);
+app.use("/api/nft",nftRouter);
 
 //if no route hit till this point
 //then user has hit a wrong end point
