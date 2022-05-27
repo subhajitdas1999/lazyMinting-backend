@@ -10,6 +10,10 @@ const NFTDetailSchema = new mongoose.Schema({
     type: String,
     required: [true, "A NFT Art is required"],
   },
+  artName:{
+    type: String,
+    required: [true, "A NFT Art name is required"],
+  },
   artDescription : {
     type : String,
     required : [true , "A NFT art description is required"],
