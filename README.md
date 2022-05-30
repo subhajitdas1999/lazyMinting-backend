@@ -2,6 +2,7 @@
 
 [Overview](#overview)<br>
 [Api Documentation](#api-documentation)<br>
+[Hosted Backend](#hosted-backend)<br>
 [project setup](#project-setup)<br>
 
 ## **Overview**
@@ -17,6 +18,19 @@ To create a token id of an NFT, server uses ethers js module to calculate the to
 To handle authorization and off chain NFT this server connects to a mongodb database , which stores all the users data , nft data.
 
 ***
+
+## **Hosted Backend**
+
+The backend hosted at [link](https://my-lazy-minting.herokuapp.com/)
+
+For ex if you hit (https://my-lazy-minting.herokuapp.com/) this route You will get error, as nothing is specified for **(/)** this route.
+
+For Now every thing is specified under **(/api/####)** routes
+
+if You want all the NFT details .Hit this url instead.
+ ```
+ https://my-lazy-minting.herokuapp.com/api/nft/allNfts
+ ```
 ## **Api Documentation**
 
 Postman Api documentation [link](https://documenter.getpostman.com/view/15761755/UyxnCjDk)
