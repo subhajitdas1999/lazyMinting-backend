@@ -22,7 +22,7 @@ const sendCookie = (req,res, token) => {
     ), //in milliseconds
     // secure: false, //for this the cookie will only be sent in secured connection (HTTPS) and we want to activate this part only in production
     httpOnly: true, //this will make the cookie cannot be access or modified in anyway by the browser
-    // SameSite: "None",
+    SameSite: "None",
   };
 
   //part of hero ku deployment
