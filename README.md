@@ -17,33 +17,35 @@ To create a token id of an NFT, server uses ethers js module to calculate the to
 
 To handle authorization and off chain NFT this server connects to a mongodb database , which stores all the users data , nft data.
 
-***
+---
 
 ## **Important Links**
 
-The backend hosted at [link](https://my-lazy-minting.herokuapp.com/)
+-The backend hosted at [link](https://my-lazy-minting.herokuapp.com/)
 
-For ex if you hit (https://my-lazy-minting.herokuapp.com/) this route You will get error, as nothing is specified for **(/)** this route.
+For now every thing is specified under **(/api/####)** routes.
 
-For Now every thing is specified under **(/api/####)** routes
+To get all the NFT details visit this url.
 
-if You want all the NFT details .Hit this url instead.
- ```
- https://my-lazy-minting.herokuapp.com/api/nft/allNfts
- ```
+```
+https://my-lazy-minting.herokuapp.com/api/nft/allNfts
+```
 
-The frontend is deployed at [link](https://cryptic-woodland-73080.herokuapp.com/)
+For more visit [Api Documentation](#api-documentation)
 
-Frontend [github](https://github.com/subhajitdas1999/lazyminting-frontend)
+- The frontend is deployed at [link](https://cryptic-woodland-73080.herokuapp.com/)
 
-Smart contract [github](https://github.com/subhajitdas1999/lazyMinting-SC)
+- Frontend [github](https://github.com/subhajitdas1999/lazyminting-frontend)
 
-***
+- Smart contract [github](https://github.com/subhajitdas1999/lazyMinting-SC)
+
+---
+
 ## **Api Documentation**
 
 Postman Api documentation [link](https://documenter.getpostman.com/view/15761755/UyxnCjDk)
 
-***
+---
 
 ## **project setup**
 
@@ -59,7 +61,7 @@ git clone https://github.com/subhajitdas1999/lazyMinting-backend.git
 cd lazyMinting-backend
 ```
 
-to change branch 
+to change branch
 
 ```
 git switch <branch name>
@@ -67,17 +69,16 @@ git switch <branch name>
 
 3. create a .env file ,See the .env.example file for details
 
-
 4. Install dependencies
 
 ```
 npm i
 ```
+
 5. set up the database string in server.js and and .env file
 
-6. Run 
+6. Run
 
 ```
 npm start
 ```
-
