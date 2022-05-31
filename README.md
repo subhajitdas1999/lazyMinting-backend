@@ -61,12 +61,6 @@ git clone https://github.com/subhajitdas1999/lazyMinting-backend.git
 cd lazyMinting-backend
 ```
 
-to change branch
-
-```
-git switch <branch name>
-```
-
 3. create a .env file ,See the .env.example file for details
 
 4. Install dependencies
