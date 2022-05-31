@@ -14,7 +14,7 @@ const getToken = (id) => {
   });
 };
 
-const sendCookie = (req,res, token) => {
+const sendCookie = (req, res, token) => {
   //setting cookie options
   const cookieOptions = {
     expires: new Date(
@@ -31,8 +31,8 @@ const sendCookie = (req,res, token) => {
   //to make it work in heroku we have to check if the x-forward-proto header set to https
   //this something heroku does internally
 
-  if (req.secure || req.headers["x-forward-proto"] === "https"){
-    cookieOptions.sameSite = "None"
+  if (req.secure || req.headers["x-forward-proto"] === "https") {
+    cookieOptions.sameSite = "None"; //need to do this , otherwise for cross origin browser will set sameSite=Lax and cookie will not be stored inside the browser
     cookieOptions.secure = true;
   }
 
@@ -51,7 +51,7 @@ const signup = catchAsync(async (req, res, next) => {
   const token = getToken(user._id);
 
   //send cookie
-  sendCookie(req,res, token);
+  sendCookie(req, res, token);
   res.status(201).json({
     status: "success",
     token,
@@ -79,7 +79,7 @@ const logIn = catchAsync(async (req, res, next) => {
   const token = getToken(user._id);
 
   //send cookie
-  sendCookie(req,res, token);
+  sendCookie(req, res, token);
 
   // send the response
   res.status(201).json({
@@ -93,7 +93,7 @@ const logIn = catchAsync(async (req, res, next) => {
 
 const logOut = catchAsync(async (req, res, next) => {
   //send cookie
-  sendCookie(req,res, "loggedOut");
+  sendCookie(req, res, "loggedOut");
   res.status(200).json({
     status: "success",
   });
