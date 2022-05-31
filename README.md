@@ -2,7 +2,7 @@
 
 [Overview](#overview)<br>
 [Api Documentation](#api-documentation)<br>
-[Hosted Backend](#hosted-backend)<br>
+[Important Links](#important-links)<br>
 [project setup](#project-setup)<br>
 
 ## **Overview**
@@ -19,7 +19,7 @@ To handle authorization and off chain NFT this server connects to a mongodb data
 
 ***
 
-## **Hosted Backend**
+## **Important Links**
 
 The backend hosted at [link](https://my-lazy-minting.herokuapp.com/)
 
@@ -31,6 +31,14 @@ if You want all the NFT details .Hit this url instead.
  ```
  https://my-lazy-minting.herokuapp.com/api/nft/allNfts
  ```
+
+The frontend is deployed at [link](https://cryptic-woodland-73080.herokuapp.com/)
+
+Frontend [github](https://github.com/subhajitdas1999/lazyminting-frontend)
+
+Smart contract [github](https://github.com/subhajitdas1999/lazyMinting-SC)
+
+***
 ## **Api Documentation**
 
 Postman Api documentation [link](https://documenter.getpostman.com/view/15761755/UyxnCjDk)
