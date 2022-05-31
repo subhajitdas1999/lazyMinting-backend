@@ -33,7 +33,7 @@ https://my-lazy-minting.herokuapp.com/api/nft/allNfts
 
 For more visit [Api Documentation](#api-documentation)
 
-- The frontend is deployed at [link](https://cryptic-woodland-73080.herokuapp.com/)
+- The frontend is deployed at [link](https://lazy-minting-frontend.herokuapp.com/)
 
 - Frontend [github](https://github.com/subhajitdas1999/lazyminting-frontend)
 
