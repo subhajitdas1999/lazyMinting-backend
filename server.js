@@ -45,3 +45,17 @@ process.on("unhandledRejection", (err) => {
     process.exit(1);
   });
 });
+
+
+//part of hero ku deployment
+//heroku dyno -> dyno ->A container in which a our application is running
+//this dyno restarts in every 24hrs in order to make our app healthy state
+//the way heroku does this by sending  SiGTERM signal to our nodejs signal and the application shut down immediately
+//the problem with this is the shutdown can be problematic and this can leave request currently being executed hanging in the air
+process.on("SIGTERM", (err) => {
+  console.log("SIGTERM recieved, shutting down ...........");
+  server.close(() => {
+    console.log("process terminated");
+  });
+  
+});
