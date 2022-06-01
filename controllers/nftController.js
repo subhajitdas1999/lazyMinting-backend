@@ -52,8 +52,8 @@ const uploadNFT = catchAsync(async (req, res, next) => {
   const NFTDocument = {
     user: req.user._id,
     tokenId: tokenId,
-    tokenURI: `ipfs://${file.hash()}`,
-    artLink: jsonfile.ipfs(),
+    tokenURI: `ipfs://${jsonfile.hash()}`,
+    artLink: `https://gateway.pinata.cloud/ipfs/${jsonfile.hash()}`,
     artName:req.body.artName,
     artDescription: req.body.description,
   };
